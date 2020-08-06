@@ -1,0 +1,29 @@
+Bootstrap: docker
+From: tensorflow/tensorflow:latest-gpu
+
+%labels
+Author bdwheele@indiana.edu
+Version v0.1.0
+
+%post
+    # store the build date
+    NOW=`date`
+    echo "export NOW=\"$NOW\"" >> $SINGULARITY_ENVIRONMENT
+
+    # Update the distro
+    apt-get update -y
+
+    # install ffmpeg
+    apt-get install -y ffmpeg libavcodec-extra
+
+    # install ina speech segmenter and tensorflow dependency    
+    pip3 install tensorflow
+    pip3 install inaspeechsegmenter
+    
+%runscript
+    echo "INFO: Container was created $NOW"
+    echo "INFO: Arguments received: $*"
+    echo "INFO: Output will be created in /mnt's bind"
+    exec ina_speech_segmenter.py -o /mnt -i "$@"
+
+
