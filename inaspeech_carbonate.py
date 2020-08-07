@@ -30,7 +30,7 @@ def main():
     parser.add_argument("--quiet", default=False, action="store_true", help="Turn off output")
     parser.add_argument("--nocleanup", default=False, action="store_true", help="Don't clean up the remote directories")
     parser.add_argument("--email", default=None, type=str, help="Email address for status reports")
-    parser.add_argument("--memory", default=32, type=int, help="Memory allocation request in GB")
+    parser.add_argument("--memory", default=8, type=int, help="Memory allocation request in GB")
     parser.add_argument("config", help="Configuration file")
     parser.add_argument("input", help="input audio file")
     parser.add_argument("output", help="INA Speech Segmenter output")
@@ -75,7 +75,7 @@ def main():
             logger.info(f"Creating work directory: {workdir}")
             sftp.mkdir(workdir)
             sftp.chdir(workdir)
-            for d in ('work_dir'):
+            for d in ['work_dir']:
                 sftp.mkdir(d)
         
             # copy the input file to the remote
@@ -108,7 +108,7 @@ def main():
                     f.write(f"singularity run --nv \\\n")
                     f.write(f"  --bind {workspace}/work_dir:/mnt \\\n")
                     f.write(f"  {config['remote']['inaspeech_sif']} \\\n")
-                    f.write(f"  /mnt/{ifile.name}")
+                    f.write(f"  /mnt/{ifile.name}\n")
                     f.write(f"echo $? > {workspace}/finished.out\n")
                 sftp.put(jobfile, "job.sh")
                 sftp.chmod("job.sh", 0o755)

@@ -17,8 +17,10 @@ Version v0.1.0
     apt-get install -y ffmpeg libavcodec-extra
 
     # install ina speech segmenter and tensorflow dependency    
+    pip3 install matplotlib==3.2
     pip3 install tensorflow
     pip3 install inaspeechsegmenter
+    
     
 %runscript
     echo "INFO: Container was created $NOW"
