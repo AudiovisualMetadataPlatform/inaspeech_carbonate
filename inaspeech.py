@@ -1,4 +1,4 @@
-#!/bin/env python3
+#!/usr/bin/env python3
 #
 # This is a one-file-only version of the ina_speech_segmenter.py that
 # is installed in the container.  It requires both input and output
