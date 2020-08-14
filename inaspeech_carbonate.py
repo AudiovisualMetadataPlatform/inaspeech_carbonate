@@ -86,7 +86,7 @@ def main():
 
             # while we're here, build a dict that holds the remote
             # output names and the corresponding local output filenames
-            out_map = {f'work_dir/{ifile.stem}.csv': args.output}                       
+            out_map = {f'work_dir/{ofile.name}': args.output}                       
             
             # Build a job file which we will be submitting to the queing system.
             # This job reproduces the behavior of the Fraunhofer-supplied run.sh
@@ -108,7 +108,8 @@ def main():
                     f.write(f"singularity run --nv \\\n")
                     f.write(f"  --bind {workspace}/work_dir:/mnt \\\n")
                     f.write(f"  {config['remote']['inaspeech_sif']} \\\n")
-                    f.write(f"  /mnt/{ifile.name}\n")
+                    f.write(f"  /mnt/{ifile.name}\\\n")
+                    f.write(f"  /mnt/{ofile.name}\n")
                     f.write(f"echo $? > {workspace}/finished.out\n")
                 sftp.put(jobfile, "job.sh")
                 sftp.chmod("job.sh", 0o755)

@@ -5,6 +5,11 @@ From: tensorflow/tensorflow:latest-gpu
 Author bdwheele@indiana.edu
 Version v0.1.0
 
+%files
+inaspeech.py   /usr/local/bin
+
+
+
 %post
     # store the build date
     NOW=`date`
@@ -26,6 +31,6 @@ Version v0.1.0
     echo "INFO: Container was created $NOW"
     echo "INFO: Arguments received: $*"
     echo "INFO: Output will be created in /mnt's bind"
-    exec ina_speech_segmenter.py -o /mnt -i "$@"
+    exec inaspeech.py "$@"
 
 
